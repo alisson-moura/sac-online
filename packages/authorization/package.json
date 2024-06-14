@@ -2,11 +2,11 @@
   "name": "@sac/authorization",
   "version": "0.0.0",
   "private": "true",
-  "main": "index.ts",
-  "types": "index.ts",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "devDependencies": {
-    "@sac/prettier": "*",
     "@sac/eslint": "*",
+    "@sac/prettier": "*",
     "@sac/tsconfig": "*"
   },
   "prettier": "@sac/prettier",
@@ -14,5 +14,9 @@
     "extends": [
       "@sac/eslint/library.js"
     ]
+  },
+  "dependencies": {
+    "@casl/ability": "^6.7.1",
+    "zod": "^3.23.8"
   }
 }

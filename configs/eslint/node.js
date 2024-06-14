@@ -4,11 +4,9 @@ module.exports = {
   plugins: ['simple-import-sort'],
   rules: {
     'simple-import-sort/imports': 'error',
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      },
-    ],
+    'no-console': 'error',
+    semi: ['error', 'always'],
+    quotes: ['error', 'single'],
+    'prettier/prettier': 'error',
   },
 };

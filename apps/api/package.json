@@ -1,0 +1,24 @@
+{
+  "name": "@sac/api",
+  "version": "1.0.0",
+  "private": "true",
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@sac/authorization": "*"
+  },
+  "devDependencies": {
+    "@sac/eslint": "*",
+    "@sac/prettier": "*",
+    "@sac/tsconfig": "*",
+    "@types/node": "^20.14.2",
+    "tsx": "^4.15.4"
+  },
+  "prettier": "@sac/prettier",
+  "eslintConfig": {
+    "extends": [
+      "@sac/eslint/node"
+    ]
+  }
+}
