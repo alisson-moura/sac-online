@@ -5,8 +5,9 @@ SAC Online é um sistema SaaS multi-tenant de atendimento ao cliente que permite
 ## Funcionalidades
 
 ### Autenticação
-- [ ] Criar uma conta com e-mail e senha
-- [ ] Realizar login
+- [x] Criar uma conta com e-mail e senha
+   - [x] Adicionar automaticamente um cliente como membro de uma organização ao se cadastrar, se o domínio de seu e-mail corresponder ao domínio da organização e se a organização tiver configurado a opção de adicionar membros por domínio.
+- [x] Realizar login com senha
 - [ ] Recuperar senha
 
 ### Convites de Membros
