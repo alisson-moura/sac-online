@@ -6,6 +6,7 @@ import fastifySwaggerUi from '@fastify/swagger-ui'
 import { createAccount } from './routes/auth/create-account'
 import { authWithPassword } from './routes/auth/auth-with-password'
 import fastifyJwt from '@fastify/jwt'
+import { getProfile } from './routes/auth/get-profile'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 app.setSerializerCompiler(serializerCompiler)
@@ -40,6 +41,7 @@ app.register(fastifySwaggerUi, {
 
 app.register(createAccount)
 app.register(authWithPassword)
+app.register(getProfile)
 
 app.listen({ port: 3333 }).then(() => {
     console.log('HTTP server running')
