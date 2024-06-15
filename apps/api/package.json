@@ -3,20 +3,27 @@
   "version": "1.0.0",
   "private": "true",
   "scripts": {
-    "dev": "tsx watch src/http/server.ts"
+    "dev": "tsx watch src/http/server.ts",
+    "seed": "npx prisma db push --force-reset && npx prisma db seed"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",
     "@prisma/client": "^5.15.0",
     "@sac/authorization": "*",
+    "bcryptjs": "^2.4.3",
     "fastify": "^4.28.0",
     "fastify-type-provider-zod": "^1.2.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@sac/eslint": "*",
     "@sac/prettier": "*",
     "@sac/tsconfig": "*",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.14.2",
     "prisma": "^5.15.0",
     "tsx": "^4.15.4"
