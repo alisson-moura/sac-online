@@ -3,6 +3,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
 import { compare } from 'bcryptjs'
+import { BadRequestError } from "@/http/errors/bad-request";
 
 export async function authWithPassword(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().post('/sessions/password', {
@@ -17,9 +18,6 @@ export async function authWithPassword(app: FastifyInstance) {
             response: {
                 200: z.object({
                     token: z.string()
-                }),
-                400: z.object({
-                    error: z.string()
                 })
             }
         }
@@ -31,12 +29,12 @@ export async function authWithPassword(app: FastifyInstance) {
             }
         })
         if (user == null || user.passwordHash == null)
-            return reply.status(400).send({ error: 'Invalid e-mail or password.' })
+            throw new BadRequestError('Invalid e-mail or password.')
 
 
         const passwordMatch = await compare(password, user.passwordHash)
         if (!passwordMatch)
-            return reply.status(400).send({ error: 'Invalid e-mail or password.' })
+            throw new BadRequestError('Invalid e-mail or password.')
 
         const token = await reply.jwtSign({ sub: user.id }, {
             sign: {

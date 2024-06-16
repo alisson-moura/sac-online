@@ -7,11 +7,14 @@ import { createAccount } from './routes/auth/create-account'
 import { authWithPassword } from './routes/auth/auth-with-password'
 import fastifyJwt from '@fastify/jwt'
 import { getProfile } from './routes/auth/get-profile'
+import { errorHandler } from './errors/error-handler'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
 app.register(fastifyCors)
+app.setErrorHandler(errorHandler)
+
 app.register(fastifyJwt, {
     secret: process.env.JWT_SECRET ?? ''
 })

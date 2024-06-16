@@ -1,3 +1,4 @@
+import { UnauthorizedError } from "@/http/errors/unauthorized";
 import { prisma } from "@/lib/prisma";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
@@ -16,9 +17,6 @@ export async function getProfile(app: FastifyInstance) {
                         email: z.string().email(),
                         avatarUrl: z.string().url().nullable()
                     })
-                }),
-                400: z.object({
-                    error: z.string()
                 })
             }
         }
@@ -36,7 +34,7 @@ export async function getProfile(app: FastifyInstance) {
             }
         })
         if (user == null)
-            return reply.status(400).send({ error: 'Invalid token.' })
+            throw new UnauthorizedError()
 
 
         return reply.status(200).send({
