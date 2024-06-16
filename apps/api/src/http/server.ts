@@ -8,6 +8,8 @@ import { authWithPassword } from './routes/auth/auth-with-password'
 import fastifyJwt from '@fastify/jwt'
 import { getProfile } from './routes/auth/get-profile'
 import { errorHandler } from './errors/error-handler'
+import { requestPasswordRecover } from './routes/auth/request-password-recover'
+import { resetPassword } from './routes/auth/reset-password'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 app.setSerializerCompiler(serializerCompiler)
@@ -41,9 +43,10 @@ app.register(fastifySwaggerUi, {
     routePrefix: '/docs',
 });
 
-
 app.register(createAccount)
 app.register(authWithPassword)
+app.register(requestPasswordRecover)
+app.register(resetPassword)
 app.register(getProfile)
 
 app.listen({ port: 3333 }).then(() => {
