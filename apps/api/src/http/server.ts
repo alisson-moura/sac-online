@@ -10,6 +10,7 @@ import { getProfile } from './routes/auth/get-profile'
 import { errorHandler } from './errors/error-handler'
 import { requestPasswordRecover } from './routes/auth/request-password-recover'
 import { resetPassword } from './routes/auth/reset-password'
+import { env } from '@sac/env'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 app.setSerializerCompiler(serializerCompiler)
@@ -18,7 +19,7 @@ app.register(fastifyCors)
 app.setErrorHandler(errorHandler)
 
 app.register(fastifyJwt, {
-    secret: process.env.JWT_SECRET ?? ''
+    secret: env.JWT_SECRET
 })
 
 app.register(fastifySwagger, {
@@ -34,7 +35,16 @@ app.register(fastifySwagger, {
                 url: 'http://localhost:3333',
                 description: 'Development server'
             }
-        ]
+        ],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT'
+                }
+            }
+        }
     },
     transform: jsonSchemaTransform
 });
@@ -49,6 +59,6 @@ app.register(requestPasswordRecover)
 app.register(resetPassword)
 app.register(getProfile)
 
-app.listen({ port: 3333 }).then(() => {
+app.listen({ port: env.SERVER_PORT }).then(() => {
     console.log('HTTP server running')
 })
