@@ -11,6 +11,7 @@ import { errorHandler } from './errors/error-handler'
 import { requestPasswordRecover } from './routes/auth/request-password-recover'
 import { resetPassword } from './routes/auth/reset-password'
 import { env } from '@sac/env'
+import { createOrganization } from './routes/organizations/create-organization'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 app.setSerializerCompiler(serializerCompiler)
@@ -58,6 +59,7 @@ app.register(authWithPassword)
 app.register(requestPasswordRecover)
 app.register(resetPassword)
 app.register(getProfile)
+app.register(createOrganization)
 
 app.listen({ port: env.SERVER_PORT }).then(() => {
     console.log('HTTP server running')
