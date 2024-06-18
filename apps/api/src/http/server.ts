@@ -13,6 +13,8 @@ import { resetPassword } from './routes/auth/reset-password'
 import { env } from '@sac/env'
 import { createOrganization } from './routes/organizations/create-organization'
 import { getMembership } from './routes/organizations/get-membership'
+import { getOrganization } from './routes/organizations/get-organization'
+import { getOrganizations } from './routes/organizations/get-organizations'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 app.setSerializerCompiler(serializerCompiler)
@@ -62,6 +64,8 @@ app.register(resetPassword)
 app.register(getProfile)
 app.register(createOrganization)
 app.register(getMembership)
+app.register(getOrganization)
+app.register(getOrganizations)
 
 app.listen({ port: env.SERVER_PORT }).then(() => {
     console.log('HTTP server running')
