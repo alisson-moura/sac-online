@@ -65,15 +65,15 @@ async function seed() {
                     data: [
                         {
                             userId: user.id,
-                            role: 'GESTOR',
+                            role: 'Gestor',
                         },
                         {
                             userId: anotherUser.id,
-                            role: 'ASSISTENTE',
+                            role: 'Assistente',
                         },
                         {
                             userId: anotherUser2.id,
-                            role: 'ASSISTENTE',
+                            role: 'Assistente',
                         },
                     ],
                 },
@@ -110,15 +110,15 @@ async function seed() {
                     data: [
                         {
                             userId: user.id,
-                            role: 'ASSISTENTE',
+                            role: 'Assistente',
                         },
                         {
                             userId: anotherUser.id,
-                            role: 'GESTOR',
+                            role: 'Gestor',
                         },
                         {
                             userId: anotherUser2.id,
-                            role: 'ASSISTENTE',
+                            role: 'Assistente',
                         },
                     ],
                 },

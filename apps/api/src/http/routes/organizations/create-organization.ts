@@ -51,7 +51,7 @@ export async function createOrganization(app: FastifyInstance) {
                 members: {
                     create: {
                         userId,
-                        role: 'GESTOR'
+                        role: 'Gestor'
                     }
                 }
             }

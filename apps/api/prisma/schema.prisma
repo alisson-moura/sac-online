@@ -76,16 +76,16 @@ model Organization {
 }
 
 enum Role {
-  ADMIN
-  GESTOR
-  ASSISTENTE
-  CLIENTE
+  Admin
+  Gestor
+  Assistente
+  Cliente
 }
 
 model Invite {
   id             String   @id @default(uuid())
   email          String
-  role           Role     @default(ASSISTENTE)
+  role           Role     @default(Assistente)
   authorId       String   @map("author_id")
   organizationId String   @map("organization_id")
   createdAt      DateTime @default(now()) @map("created_at")
@@ -100,7 +100,7 @@ model Invite {
 
 model Member {
   id             String @id @default(uuid())
-  role           Role   @default(ASSISTENTE)
+  role           Role   @default(Assistente)
   organizationId String @map("organization_id")
   userId         String @map("user_id")
 
