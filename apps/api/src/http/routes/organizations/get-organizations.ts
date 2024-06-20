@@ -18,6 +18,7 @@ export async function getOrganizations(app: FastifyInstance) {
                             id: z.string().uuid(),
                             name: z.string(),
                             slug: z.string(),
+                            status: z.string(),
                             avatarUrl: z.string().nullable(),
                             domain: z.string().nullable(),
                             role: z.string()
@@ -34,6 +35,7 @@ export async function getOrganizations(app: FastifyInstance) {
                     slug: true,
                     domain: true,
                     avatarUrl: true,
+                    status: true,
                     members: {
                         select: {
                             role: true
@@ -49,6 +51,7 @@ export async function getOrganizations(app: FastifyInstance) {
                     }
                 }
             })
+            console.log(organizations)
 
             const orgsWithUserRole = organizations.map(({ members, ...org }) => ({ ...org, role: members[0].role }))
 

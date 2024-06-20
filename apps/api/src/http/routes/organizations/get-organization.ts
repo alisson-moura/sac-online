@@ -20,6 +20,7 @@ export async function getOrganization(app: FastifyInstance) {
                             id: z.string().uuid(),
                             name: z.string(),
                             slug: z.string(),
+                            status:z.string(),
                             avatarUrl: z.string().nullable(),
                             domain: z.string().nullable(),
                             shouldAttachUsersByDomain: z.boolean()
@@ -30,7 +31,7 @@ export async function getOrganization(app: FastifyInstance) {
         }, async (request, reply) => {
             const { slug } = request.params
             const { organization } = await request.getUserMembership(slug)
-
+            
             return reply.status(200).send({
                 organization
             })
