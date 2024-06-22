@@ -19,6 +19,7 @@ SAC Online é um sistema SaaS multi-tenant de atendimento ao cliente que permite
 - [x] Ver detalhes da organização
 - [x] Atualizar detalhes da organização
 - [x] Ativar/desativar a organização
+- [x] Transferir organização
 
 ### Gestão de Membros
 - [ ] Alterar a função (role) de um membro (somente gestor)
@@ -27,7 +28,7 @@ SAC Online é um sistema SaaS multi-tenant de atendimento ao cliente que permite
 - [ ] Atualizar informações de um membro (gestor pode atualizar qualquer membro, membros podem atualizar apenas suas próprias informações)
 
 ### Formulários de Pesquisa de Satisfação (CRUD)
-- [ ] Criar formulários de pesquisa de satisfação
+- [x] Criar formulários de pesquisa de satisfação
 - [ ] Ler formulários de pesquisa de satisfação
 - [ ] Atualizar formulários de pesquisa de satisfação
 - [ ] Deletar formulários de pesquisa de satisfação
