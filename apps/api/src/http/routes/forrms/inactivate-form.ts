@@ -11,7 +11,7 @@ import { formSchema } from "@sac/authorization";
 export async function inactivateForm(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>()
         .register(authMiddleware)
-        .delete('organizations/:slug/forms/:id', {
+        .delete('/organizations/:slug/forms/:id', {
             schema: {
                 tags: ['Survey Forms'],
                 summary: 'Inactivate Form',
