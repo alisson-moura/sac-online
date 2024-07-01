@@ -18,11 +18,11 @@ import { getOrganizations } from './routes/organizations/get-organizations'
 import { updateOrganization } from './routes/organizations/update-organization'
 import { shutdownOrganization } from './routes/organizations/shutdown-organization'
 import { transferOrganization } from './routes/organizations/transfer-organization'
-import { createForm } from './routes/forrms/create-form'
-import { inactivateForm } from './routes/forrms/inactivate-form'
-import { getForm } from './routes/forrms/get-form'
-import { getForms } from './routes/forrms/get-forms'
-import { updateForm } from './routes/forrms/update-form'
+import { createForm } from './routes/forms/create-form'
+import { inactivateForm } from './routes/forms/inactivate-form'
+import { getForm } from './routes/forms/get-form'
+import { getForms } from './routes/forms/get-forms'
+import { updateForm } from './routes/forms/update-form'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 app.setSerializerCompiler(serializerCompiler)
