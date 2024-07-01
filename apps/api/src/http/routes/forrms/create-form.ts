@@ -9,7 +9,7 @@ import { UnauthorizedError } from "@/http/errors/unauthorized";
 export async function createForm(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>()
         .register(authMiddleware)
-        .post('/forms', {
+        .post('/organizations/:slug/forms', {
             schema: {
                 tags: ['Survey Forms'],
                 summary: 'Create a new survey form',
