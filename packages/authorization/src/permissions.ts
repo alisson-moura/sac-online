@@ -14,6 +14,7 @@ export const permissions: Record<Role, PermissionsByRole> = {
         builder.can('manage', 'FormSubject', { organizationId: { $eq: user.organizationId } })
         builder.can('manage', 'UserSubject', { organizationId: { $eq: user.organizationId } })
         builder.can('create', 'InviteSubject', { organizationId: { $eq: user.organizationId } })
+        builder.can('get', 'InviteSubject', { organizationId: { $eq: user.organizationId } })
     },
     Assistente: function (user, builder: AbilityBuilder<AppAbility>): void {
         builder.can('view', 'UserSubject', { organizationId: { $eq: user.organizationId } })
