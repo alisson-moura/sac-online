@@ -21,7 +21,8 @@ export async function getMembers(app: FastifyInstance) {
                     200: z.object({
                         members: z.array(
                             z.object({
-                                id: z.string(),
+                                id: z.string().uuid(),
+                                userId: z.string().uuid(),
                                 name: z.string().nullable(),
                                 email: z.string(),
                                 avatarUrl: z.string().nullable(),
@@ -63,11 +64,11 @@ export async function getMembers(app: FastifyInstance) {
             })
 
             const membersWithUserAndRole = members.map(({user, ...member}) => ({
-                id: user.id,
+                userId: user.id,
                 name: user.name,
                 email: user.email,
                 avatarUrl: user.avatarUrl,
-                role: member.role
+                ...member
             }))
 
             return reply.status(200).send({
