@@ -24,6 +24,7 @@ import { getForm } from './routes/forms/get-form'
 import { getForms } from './routes/forms/get-forms'
 import { updateForm } from './routes/forms/update-form'
 import { getMembers } from './routes/members/get-members'
+import { updateMember } from './routes/members/update-member'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 app.setSerializerCompiler(serializerCompiler)
@@ -84,6 +85,7 @@ app.register(getForm)
 app.register(getForms)
 app.register(updateForm)
 app.register(getMembers)
+app.register(updateMember)
 
 app.listen({ port: env.SERVER_PORT }).then(() => {
     console.log('HTTP server running')
