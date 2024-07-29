@@ -49,7 +49,7 @@ SAC Online é um sistema SaaS multi-tenant de atendimento ao cliente que permite
 
 |                                       | Admin | Gestor | Assistente | Cliente |
 | ------------------------------------- | ----- | ------ | ---------- | ------- |
-| Criar conta                           | ✅    | ✅     | ✅         | ❌      |
+| Criar conta                           | ✅    | ✅     | ✅         | ✅      |
 | Realizar login                        | ✅    | ✅     | ✅         | ✅      |
 | Recuperar senha                       | ✅    | ✅     | ✅         | ✅      |
 | Convidar membros                      | ✅    | ✅     | ❌         | ❌      |
