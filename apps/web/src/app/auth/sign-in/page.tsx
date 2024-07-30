@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
 export default function SignInPage() {
@@ -21,8 +20,11 @@ export default function SignInPage() {
                 </Link>
             </div>
             <Button type="submit" className="w-full">Entrar com E-mail</Button>
-            <Separator  />
-            <Button type="button" variant="outline" className="w-full">Entrar com sua conta Google</Button>
+            <Button type="button" variant='link' size='sm' asChild className="w-full size" >
+                <Link href='/auth/sign-up'>
+                    Criar uma nova conta
+                </Link>
+            </Button>
         </form>
     )
 }
