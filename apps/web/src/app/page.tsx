@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { auth } from "@/hooks/is-authenticated";
 
-export default function Home() {
+export default async function Home() {
+  const { user } = await auth()
   return (
-    <Button>SAC Online</Button>
+    <pre>
+      {JSON.stringify(user)}
+    </pre>
   );
 }
