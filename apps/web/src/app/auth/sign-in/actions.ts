@@ -3,7 +3,6 @@ import { signInWithPassword } from "@/http/sign-in-with-password"
 import { HTTPError } from "ky"
 import { z } from "zod"
 import { cookies } from 'next/headers'
-import { redirect } from "next/navigation"
 
 const signInInputSchema = z.object({
     email: z.string().email({ message: 'Por favor, fornece um e-mail válido' }),
