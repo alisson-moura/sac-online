@@ -10,10 +10,8 @@ export function ThemeSwitcher() {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant='ghost' size='icon'>
-                    {resolvedTheme === 'light'
-                        ? <Sun className="size-4" />
-                        : <Moon className="size-4" />
-                    }
+                    <Sun className="size-4 dark:size-0" />
+                    <Moon className="size-0 dark:size-4" />
                     <span className="sr-only">Trocar tema</span>
                 </Button>
             </DropdownMenuTrigger>
