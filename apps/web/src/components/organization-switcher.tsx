@@ -4,10 +4,10 @@ import { Avatar, AvatarFallback } from "./ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import Link from "next/link";
 import { getOrganizations } from "@/http/get-organiztions";
-import { cookies } from "next/headers";
+import { getCurrentOrg } from "@/hooks/is-authenticated";
 
 export async function OrganizationSwitcher() {
-    const currentOrg = cookies().get('org')?.value
+    const currentOrg = getCurrentOrg()
     const { organizations } = await getOrganizations()
     const currentOrganization = organizations.find(org => org.slug === currentOrg)
 
