@@ -1,3 +1,4 @@
+import { Header } from "@/components/header";
 import { isAuthenticated } from "@/hooks/is-authenticated";
 import { redirect } from "next/navigation";
 
@@ -10,8 +11,9 @@ export default function AppLayout({
         redirect('/auth/sign-in')
 
     return (
-        <>
-            {children}
-        </>
+        <div className="py-4 space-y-4">
+            <Header />
+            <main className="mx-auto w-full max-w-[1200px]">{children}</main>
+        </div>
     );
 }
