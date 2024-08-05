@@ -8,14 +8,14 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
 import { useFormState } from "@/hooks/use-form-state";
 import { useRouter } from "next/navigation";
-import { signUpAction } from "./actions";
+import { createOrganizationAction } from "./actions";
 import { Checkbox } from "@/components/ui/checkbox";
 
 export function CreateOrgForm() {
     const router = useRouter()
     const [state, handleSubmit, isPending] = useFormState(
-        signUpAction,
-        () => { router.push('/auth/sign-in') }
+        createOrganizationAction,
+        () => { }
     )
 
     return (
@@ -23,7 +23,16 @@ export function CreateOrgForm() {
             {state.success === false && state.message && (
                 <Alert variant='destructive'>
                     <AlertTriangle className="size-4" />
-                    <AlertTitle>Houve um erro ao criar sua conta</AlertTitle>
+                    <AlertTitle>Houve um erro ao criar sua organização</AlertTitle>
+                    <AlertDescription>
+                        <p>{state.message}</p>
+                    </AlertDescription>
+                </Alert>
+            )}
+            {state.success && state.message && (
+                <Alert variant='success'>
+                    <AlertTriangle className="size-4" />
+                    <AlertTitle>Parabéns!</AlertTitle>
                     <AlertDescription>
                         <p>{state.message}</p>
                     </AlertDescription>
@@ -40,7 +49,7 @@ export function CreateOrgForm() {
             </div>
             <div className="space-y-1">
                 <Label htmlFor="domain">Domínio de E-mail</Label>
-                <Input name="domain" type="text" id="domain" inputMode="url" placeholder="exemplo.com" required />
+                <Input name="domain" type="text" id="domain" inputMode="url" placeholder="exemplo.com" />
                 {state.errors?.domain && (
                     <p className="text-xs font-medium text-destructive">
                         {state.errors.domain[0]}
