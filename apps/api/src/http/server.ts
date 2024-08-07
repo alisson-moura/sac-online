@@ -34,7 +34,11 @@ import { rejectInvite } from './routes/invites/reject-invite'
 import { revokeInvite } from './routes/invites/revoke-invite'
 import { getPendingInvites } from './routes/invites/get-pending-invites'
 
-const app = fastify().withTypeProvider<ZodTypeProvider>()
+const app = fastify({
+    logger: {
+        level: 'debug'
+    }
+}).withTypeProvider<ZodTypeProvider>()
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
 app.register(fastifyCors)

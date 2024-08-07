@@ -34,7 +34,7 @@ async function seed() {
         },
     })
 
-    await prisma.organization.create({
+    const firstOrg = await prisma.organization.create({
         data: {
             name: 'Acme Inc (GESTOR)',
             domain: 'acme.com',
@@ -124,6 +124,14 @@ async function seed() {
                 },
             },
         },
+    })
+
+    await prisma.forms.create({
+        data: {
+            description: 'fake form',
+            name: 'Fake Form',
+            organizationId: firstOrg.id
+        }
     })
 }
 
