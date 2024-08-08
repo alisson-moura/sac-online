@@ -7,8 +7,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getForms } from "@/http/get-forms";
 import { Span } from "next/dist/trace";
 import { Skeleton } from "./ui/skeleton";
+import { AppAbility } from "@sac/authorization";
 
-export function FormSwitcher() {
+export function FormSwitcher({ canCreateForm }: { canCreateForm: boolean }) {
     const { slug, id } = useParams<{ slug: string, id: string }>()
     const { data, isLoading } = useQuery({
         queryKey: [slug, 'forms'],
@@ -45,13 +46,17 @@ export function FormSwitcher() {
                         </DropdownMenuItem>
                     ))}
                 </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                    <Link href={`/org/${slug}/new-form`}>
-                        <PlusCircle className="mr-2 size-4" />
-                        Novo formulário
-                    </Link>
-                </DropdownMenuItem>
+                {canCreateForm && (
+                    <>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem asChild>
+                            <Link href={`/org/${slug}/new-form`}>
+                                <PlusCircle className="mr-2 size-4" />
+                                Novo formulário
+                            </Link>
+                        </DropdownMenuItem>
+                    </>
+                )}
             </DropdownMenuContent>
         </DropdownMenu >
     )

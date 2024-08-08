@@ -20,7 +20,7 @@ export async function Header() {
                 {permissions?.can('view', 'FormSubject') && (
                     <>
                         <Slash className='size-3 -rotate-[24deg]' />
-                        <FormSwitcher />
+                        <FormSwitcher canCreateForm={permissions.can('manage', 'FormSubject')} />
                     </>
                 )}
             </div>
