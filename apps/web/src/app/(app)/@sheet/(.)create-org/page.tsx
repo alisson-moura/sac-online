@@ -1,5 +1,5 @@
 import { Sheet, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { CreateOrgForm } from "../../org/create-org-form";
+import { OrgForm } from "../../org/org-form";
 import { InterceptedSheetContent } from "@/components/intercepted-sheet-content";
 
 export default function CreateOrgSheet() {
@@ -13,7 +13,7 @@ export default function CreateOrgSheet() {
                     </SheetDescription>
                 </SheetHeader>
                 <div className="py-4">
-                    <CreateOrgForm />
+                    <OrgForm />
                 </div>
             </InterceptedSheetContent>
         </Sheet>

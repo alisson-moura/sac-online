@@ -1,11 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ability, getCurrentOrg } from "@/hooks/is-authenticated"
 import ShutdownButton from "./shutdown-button"
-import { CreateOrgForm } from "../../create-org-form"
+import { OrgForm } from "../../org-form"
+import { getOrganization } from "@/http/get-organiztion"
 
 export default async function Settings() {
     const currentOrg = getCurrentOrg()
     const permissions = await ability()
+    const { organization } = await getOrganization(currentOrg!)
 
     const canUpdateOrganization = permissions?.can('update', "OrganizationSubject")
     const canShutdownOrganization = permissions?.can('manage', 'OrganizationSubject')
@@ -22,7 +24,7 @@ export default async function Settings() {
                             <CardDescription>Atualize as informações da sua organização</CardDescription>
                         </CardHeader>
                         <CardContent>
-                           <CreateOrgForm />
+                           <OrgForm isUpdating initialData={organization}/>
                         </CardContent>
                     </Card>
                 )}
