@@ -25,7 +25,7 @@ export async function Tabs() {
                 )}
                 {canUpdateOrganization && (
                     <Button asChild variant='ghost' size='sm' className="border border-transparent data-[current=true]:border-border text-muted-foreground data-[current=true]:text-foreground">
-                        <NavLink href={`/org/${currentOrg}/details`}>Organização</NavLink>
+                        <NavLink href={`/org/${currentOrg}/settings`}>Configurações</NavLink>
                     </Button>
                 )}
             </nav>

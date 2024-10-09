@@ -2,17 +2,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import { AlertTriangle, Loader2 } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import Link from "next/link";
 import { useFormState } from "@/hooks/use-form-state";
-import { useRouter } from "next/navigation";
-import { createOrganizationAction } from "./actions";
+import { createOrganizationAction } from "../create-org/actions";
 import { Checkbox } from "@/components/ui/checkbox";
 
 export function CreateOrgForm() {
-    const router = useRouter()
     const [state, handleSubmit, isPending] = useFormState(
         createOrganizationAction,
         () => { }

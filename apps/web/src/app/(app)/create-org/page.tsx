@@ -1,5 +1,5 @@
 import { Header } from "@/components/header";
-import { CreateOrgForm } from "./form";
+import { CreateOrgForm } from "../org/create-org-form";
 
 export default async function CreateOrgPage() {
     return (
