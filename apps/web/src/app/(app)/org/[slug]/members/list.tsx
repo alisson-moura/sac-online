@@ -3,16 +3,20 @@ import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { ability, getCurrentOrg } from "@/hooks/is-authenticated"
 import { getMembers } from "@/http/get-members"
+import { getMembership } from "@/http/get-membership"
 import { getOrganization } from "@/http/get-organiztion"
-import { ArrowLeftRight, Crown } from "lucide-react"
+import { ArrowLeftRight, Crown, UserMinus } from "lucide-react"
 import Image from "next/image"
+import { removeMemberAction } from "./actions"
 
 export default async function List() {
     const currentOrg = getCurrentOrg()
     const permissions = await ability()
-    const [{ members }, { organization }] = await Promise.all([
+
+    const [{ members }, { organization }, { membership }] = await Promise.all([
         getMembers(currentOrg!),
-        getOrganization(currentOrg!)
+        getOrganization(currentOrg!),
+        getMembership(currentOrg!)
     ])
 
     return (
@@ -48,10 +52,20 @@ export default async function List() {
                                 </TableCell>
                                 <TableCell className="py-2.5">
                                     <div className="flex items-center justify-end gap-2">
-                                        {permissions?.can('manage', 'OrganizationSubject') && <Button size='sm' variant='ghost'>
-                                             <ArrowLeftRight className="size-4 mr-2"/>
-                                             Transformar em dono
-                                            </Button>}
+                                        {permissions?.can('manage', 'OrganizationSubject') && (
+                                            <Button size='sm' variant='ghost'>
+                                                <ArrowLeftRight className="size-4 mr-2" />
+                                                Transformar em dono
+                                            </Button>
+                                        )}
+                                        {permissions?.can('update', 'UserSubject') && (
+                                            <form action={removeMemberAction.bind(null, member.id)}>
+                                                <Button disabled={member.userId === membership.userId || member.userId === organization.ownerId} type="submit" size='sm' variant='destructive'>
+                                                    <UserMinus className="size-4 mr-2" />
+                                                    Remover
+                                                </Button>
+                                            </form>
+                                        )}
                                     </div>
                                 </TableCell>
                             </TableRow>
