@@ -55,12 +55,16 @@ export async function getMembers(app: FastifyInstance) {
                 where: {
                     organizationId: organization.id
                 },
-                orderBy: {
-                    role: 'asc',
-                    user: {
-                        name: 'asc'
+                orderBy: [
+                    {
+                        role: 'asc'
+                    },
+                    {
+                        user: {
+                            name: 'asc'
+                        }
                     }
-                }
+                ]
             })
 
             const membersWithUserAndRole = members.map(({user, ...member}) => ({

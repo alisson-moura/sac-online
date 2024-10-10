@@ -23,6 +23,7 @@ export async function getOrganization(app: FastifyInstance) {
                             status:z.string(),
                             avatarUrl: z.string().nullable(),
                             domain: z.string().nullable(),
+                            ownerId: z.string(),
                             shouldAttachUsersByDomain: z.boolean()
                         })
                     })

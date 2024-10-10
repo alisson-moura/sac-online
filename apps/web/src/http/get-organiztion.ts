@@ -8,6 +8,7 @@ interface GetOrganizationResponse {
         status: string
         domain: string | null;
         avatarUrl: string | null;
+        ownerId: string
         shouldAttachUsersByDomain: boolean
     }
 }
