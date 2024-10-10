@@ -8,6 +8,7 @@ import { getOrganization } from "@/http/get-organiztion"
 import { ArrowLeftRight, Crown, UserMinus } from "lucide-react"
 import Image from "next/image"
 import { removeMemberAction } from "./actions"
+import { UpdateRoleSelect } from "./update-role"
 
 export default async function List() {
     const currentOrg = getCurrentOrg()
@@ -58,6 +59,11 @@ export default async function List() {
                                                 Transformar em dono
                                             </Button>
                                         )}
+                                        <UpdateRoleSelect
+                                            value={member.role}
+                                            disabled={member.userId === organization.ownerId || member.userId === membership.userId}
+                                            memberId={member.id}
+                                        />
                                         {permissions?.can('update', 'UserSubject') && (
                                             <form action={removeMemberAction.bind(null, member.id)}>
                                                 <Button disabled={member.userId === membership.userId || member.userId === organization.ownerId} type="submit" size='sm' variant='destructive'>

@@ -2,6 +2,8 @@
 
 import { getCurrentOrg } from "@/hooks/is-authenticated"
 import { removeMember } from "@/http/remove-member"
+import { updateMemberRole } from "@/http/update-member-role"
+import { Role } from "@sac/authorization"
 import { revalidateTag } from "next/cache"
 
 export async function removeMemberAction(memberId: string) {
@@ -11,5 +13,15 @@ export async function removeMemberAction(memberId: string) {
         memberId
     })
 
+    revalidateTag(`${currentOrg}/members`)
+}
+
+export async function updateMemberRoleAction(memberId: string, role: Role) {
+    const currentOrg = getCurrentOrg()
+    await updateMemberRole({
+        org: currentOrg!,
+        memberId,
+        role
+    })
     revalidateTag(`${currentOrg}/members`)
 }
