@@ -1,7 +1,5 @@
 'use client'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { getCurrentOrg } from "@/hooks/is-authenticated";
-import { updateMemberRole } from "@/http/update-member-role";
 import { Role } from "@sac/authorization";
 import { ComponentProps } from "react";
 import { updateMemberRoleAction } from "./actions";
