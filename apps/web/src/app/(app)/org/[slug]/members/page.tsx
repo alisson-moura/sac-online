@@ -7,8 +7,6 @@ export default async function Members() {
 
     return (
         <div className="space-y-4">
-            <h1 className="text-2xl font-bold">Membros</h1>
-
             <div className="space-y-4">
                 {permissions?.can('get', 'InviteSubject') && (
                     <Invites />
