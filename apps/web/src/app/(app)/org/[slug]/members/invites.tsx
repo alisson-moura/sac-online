@@ -5,6 +5,7 @@ import { ability, getCurrentOrg } from "@/hooks/is-authenticated"
 import { getInvites } from "@/http/get-invites"
 import { XOctagon } from "lucide-react"
 import { RevokeInviteButton } from "./revoke-invite-button"
+import { NewInviteForm } from "./new-invite-form"
 
 
 export default async function Invites() {
@@ -19,7 +20,9 @@ export default async function Invites() {
                     <CardHeader>
                         <CardTitle>Novo convite</CardTitle>
                     </CardHeader>
-                    <CardContent></CardContent>
+                    <CardContent>
+                        <NewInviteForm />
+                    </CardContent>
                 </Card>
             )}
 

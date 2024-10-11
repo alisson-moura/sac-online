@@ -1,5 +1,5 @@
 import { Header } from "@/components/header";
-import { CreateOrgForm } from "../org/org-form";
+import { OrgForm } from "../org/org-form";
 
 export default async function CreateOrgPage() {
     return (
@@ -7,7 +7,7 @@ export default async function CreateOrgPage() {
             <Header />
             <main className="mx-auto w-full max-w-[1200px]">
                 <h1 className="text-2xl font-bold">Nova organização</h1>
-                <CreateOrgForm />
+                <OrgForm />
             </main>
         </div>
     )
