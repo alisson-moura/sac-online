@@ -15,7 +15,7 @@ export default async function Forms() {
         {
           permissions?.can('manage', 'FormSubject') && (
             <Button size="sm" asChild>
-              <Link href={`/org/${currentOrg}/create-form`}>
+              <Link href={`/org/${currentOrg}/new-form`}>
                 <PlusIcon className="size-4 mr-2" />
                 Novo Formulário
               </Link>
