@@ -8,10 +8,12 @@ import { Separator } from "@/components/ui/separator";
 import { AlertTriangle, Loader2 } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useFormState } from "@/hooks/use-form-state";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function SignInForm() {
     const router = useRouter()
+    const searchParams = useSearchParams()
+
     const [state, handleSubmit, isPending] = useFormState(
         signInWithEmailAndPassword,
         () => { router.push('/') }
@@ -30,7 +32,7 @@ export function SignInForm() {
             )}
             <div className="space-y-1">
                 <Label htmlFor="email">E-mail</Label>
-                <Input name="email" type="email" id="email" required />
+                <Input name="email" type="email" id="email" defaultValue={searchParams.get('email') ?? ''} required />
                 {state.errors?.email && (
                     <p className="text-xs font-medium text-destructive">
                         {state.errors.email[0]}

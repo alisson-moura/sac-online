@@ -1,6 +1,8 @@
 'use server'
+import { acceptInvite } from "@/http/accept-invite"
 import { signUp } from "@/http/sign-up"
 import { HTTPError } from "ky"
+import { cookies } from "next/headers"
 import { z } from "zod"
 
 const signUpInputSchema = z.object({
@@ -20,6 +22,13 @@ export async function signUpAction(data: FormData) {
 
     try {
         await signUp(result.data)
+        const inviteId = cookies().get('inviteId')?.value
+        if (inviteId) {
+            try {
+                await acceptInvite(inviteId)
+                cookies().delete('inviteId')
+            } catch (error) { }
+        }
         return { success: true, message: null, errors: null }
     } catch (err) {
         if (err instanceof HTTPError) {

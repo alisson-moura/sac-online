@@ -24,6 +24,9 @@ export async function getPendingInvites(app: FastifyInstance) {
                                 author: z.object({
                                     id: z.string().uuid(),
                                     name: z.string().nullable(),
+                                }),
+                                organization: z.object({
+                                    name: z.string()
                                 })
                             })
                         )
@@ -46,6 +49,11 @@ export async function getPendingInvites(app: FastifyInstance) {
                     author: {
                         select: {
                             id: true,
+                            name: true
+                        }
+                    },
+                    organization: {
+                        select: {
                             name: true
                         }
                     }
