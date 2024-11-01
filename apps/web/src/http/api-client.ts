@@ -4,7 +4,7 @@ import type {CookiesFn} from 'cookies-next/lib/types'
 import { env } from '@sac/env'
 
 export const api = ky.create({
-    prefixUrl: env.NEXT_PUBLIC_API_URL,
+    prefixUrl: env.NEXT_PUBLIC_API_URL!,
     hooks: {
         beforeRequest: [
             async (request) => {

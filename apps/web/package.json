@@ -30,8 +30,8 @@
     "lucide-react": "^0.417.0",
     "next": "15.0.0-rc.0",
     "next-themes": "^0.3.0",
-    "react": "^19.0.0-rc-f994737d14-20240522",
-    "react-dom": "19.0.0-rc-f994737d14-20240522",
+    "react": "19.0.0-rc-603e6108-20241029",
+    "react-dom": "19.0.0-rc-603e6108-20241029",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
@@ -41,12 +41,16 @@
     "@sac/prettier": "*",
     "@sac/tsconfig": "*",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
     "dotenv-cli": "^7.4.2",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
   },
   "prettier": "@sac/prettier",
   "eslintConfig": {
