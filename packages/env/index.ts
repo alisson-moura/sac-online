@@ -9,7 +9,7 @@ export const env = createEnv({
     },
     client: {},
     shared: {
-        NEXT_PUBLIC_API_URL: z.string().url().nullable()
+        NEXT_PUBLIC_API_URL: z.string().url()
     },
     runtimeEnv: {
         DATABASE_URL: process.env.DATABASE_URL,
