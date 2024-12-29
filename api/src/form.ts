@@ -13,6 +13,9 @@ export class Form {
 		this.questions = [];
 		this.id = randomUUID();
 	}
+	public getId(): string {
+		return this.id;
+	}
 
 	public getTitle(): string {
 		return this.title;
