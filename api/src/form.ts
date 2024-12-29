@@ -1,6 +1,8 @@
+import { randomUUID } from 'node:crypto';
 import { Question } from './question';
 
 export class Form {
+	private id: string;
 	private title: string;
 	private description: string;
 	private questions: Question[];
@@ -9,6 +11,7 @@ export class Form {
 		this.title = title;
 		this.description = description;
 		this.questions = [];
+		this.id = randomUUID();
 	}
 
 	public getTitle(): string {

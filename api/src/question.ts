@@ -3,11 +3,12 @@ import { InvalidAnswerError } from './invalid-answer-error';
 
 export enum QuestionTypes {
 	NPS = 'nps',
+	TEXT = 'text',
 }
 export class Question {
 	private id: string;
 	private title: string;
-	private answerValue: number | null;
+	private answerValue: number | string | null;
 	private type: QuestionTypes;
 
 	constructor({ title, type }: { title: string; type: QuestionTypes }) {
@@ -28,15 +29,28 @@ export class Question {
 		return this.id;
 	}
 
-	answer(value: number): void {
-		const intValue = parseInt(value as unknown as string);
-		if (intValue < 0 || intValue > 10 || isNaN(intValue)) {
-			throw new InvalidAnswerError('Apenas valores entre 0 e 10 são aceitos.');
+	answer(value: number | string): void {
+		switch (this.type) {
+			case QuestionTypes.NPS:
+				const intValue = parseInt(value as unknown as string);
+				if (intValue < 0 || intValue > 10 || isNaN(intValue)) {
+					throw new InvalidAnswerError('Apenas valores entre 0 e 10 são aceitos.');
+				}
+				this.answerValue = intValue;
+				break;
+			case QuestionTypes.TEXT:
+				if (value.toString().length < 2) {
+					throw new InvalidAnswerError('A resposta não pode ser vazia.');
+				}
+				this.answerValue = value;
+				break;
+
+			default:
+				break;
 		}
-		this.answerValue = intValue;
 	}
 
-	getAnswer(): number | null {
+	getAnswer(): number | string | null {
 		return this.answerValue;
 	}
 }
