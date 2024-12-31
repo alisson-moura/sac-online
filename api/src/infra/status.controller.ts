@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { Database } from './infra/database';
+import { Database } from './database';
 
 @Controller('status')
 export class StatusController {
