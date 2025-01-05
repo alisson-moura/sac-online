@@ -22,7 +22,7 @@ describe('Migrations', () => {
 		expect(Array.isArray(response.body)).toBe(true);
 	});
 
-	it(`/POST /migrations deve retornar 200`, async () => {
+	it(`/POST /migrations deve retornar 201`, async () => {
 		const response = await request(app.getHttpServer()).post('/migrations');
 
 		expect(response.status).toBe(201);
