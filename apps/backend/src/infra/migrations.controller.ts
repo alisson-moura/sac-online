@@ -16,6 +16,7 @@ export class MigrationsController {
 	}
 
 	private async runMigrations({ dryRun }: { dryRun: boolean }) {
+		console.log(process.env.DATABASE_URL);
 		const migrations = await migrationRunner({
 			databaseUrl: process.env.DATABASE_URL!,
 			dir: join('src', 'infra', 'migrations'),

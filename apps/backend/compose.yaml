@@ -3,6 +3,6 @@ services:
     image: postgres:alpine
     container_name: database-sac-app
     env_file:
-      - api/.env
+      - .env
     ports:
       - '5432:5432'

@@ -1,0 +1,20 @@
+{
+  "name": "sac-app",
+  "private": true,
+	"packageManager": "pnpm@10.0.0"	,
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+		"test:e2e":  "turbo run test:e2e"
+  },
+  "devDependencies": {
+    "turbo": "latest",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+		"@typescript-eslint/parser": "^8.0.0"
+  }
+}

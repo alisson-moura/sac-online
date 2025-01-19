@@ -7,7 +7,11 @@ import { Database } from './infra/database';
 import { MigrationsController } from './infra/migrations.controller';
 
 @Module({
-	imports: [ConfigModule.forRoot()],
+	imports: [
+		ConfigModule.forRoot({
+			envFilePath: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
+		}),
+	],
 	controllers: [FormControllers, StatusController, MigrationsController],
 	providers: [CreateFormService, Database],
 })

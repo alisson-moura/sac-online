@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config({ path: '../../.env.test' });
+
 import { Database } from '../../src/infra/database';
 import { MigrationsController } from '../../src/infra/migrations.controller';
 
