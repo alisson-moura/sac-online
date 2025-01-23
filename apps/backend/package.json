@@ -9,7 +9,7 @@
 		"build": "nest build",
 		"format": "prettier --config ../../.prettierrc --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"start": "nest start",
-		"dev": "nest start --watch",
+		"dev": "pnpm services:up && pnpm waitForPg && pnpm migrate:up && nest start --watch",
 		"start:debug": "nest start --debug --watch",
 		"start:prod": "node dist/main",
 		"lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -17,9 +17,11 @@
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-		"test:e2e": "jest --config ./test/jest-e2e.json --runInBand",
+		"test:e2e": "pnpm services:up && pnpm waitForPg && jest --config ./test/jest-e2e.json --runInBand",
 		"migrate:create": "node-pg-migrate create -m src/infra/migrations -j ts",
-		"migrate:up": "ts-node node_modules/.bin/node-pg-migrate -j ts -m src/infra/migrations up"
+		"migrate:up": "node-pg-migrate --tsconfig ./tsconfig.json -m src/infra/migrations up",
+		"waitForPg": "ts-node scripts/wait-for-pg",
+		"services:up": "docker compose up -d"
 	},
 	"dependencies": {
 		"@nestjs/common": "^10.0.0",
