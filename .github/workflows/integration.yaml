@@ -31,7 +31,7 @@ jobs:
       - run: pnpm format
 
   lint:
-    needs: build
+    needs: format
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
