@@ -1,5 +1,5 @@
 name: integration
-on: push
+on: pull_request
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,6 +14,21 @@ jobs:
         uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm run build
+
+  format:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - name: use node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: use pnpm
+        uses: pnpm/action-setup@v4
+      - run: pnpm install
+      - run: pnpm format
 
   lint:
     needs: build
@@ -61,5 +76,5 @@ jobs:
       - name: Run docker-compose
         uses: hoverkraft-tech/compose-action@v2.0.1
         with:
-          compose-file: "apps/backend/compose.yaml"
+          compose-file: 'apps/backend/compose.yaml'
       - run: pnpm test:e2e
