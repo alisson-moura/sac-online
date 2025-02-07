@@ -1,16 +1,31 @@
 name: integration
 on: pull_request
 jobs:
+  commitlint:
+    name: Linter de commits
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - uses: pnpm/action-setup@v4
+      - run: pnpm install
+      - name: Valida os commits do PR com commitlint
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v4
-      - name: use node.js
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - name: use pnpm
+      - name: Use pnpm
         uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm run build
@@ -19,13 +34,13 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v4
-      - name: use node.js
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - name: use pnpm
+      - name: Use pnpm
         uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm format
@@ -34,13 +49,13 @@ jobs:
     needs: format
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v4
-      - name: use node.js
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - name: use pnpm
+      - name: Use pnpm
         uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm lint
@@ -49,13 +64,13 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v4
-      - name: use node.js
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - name: use pnpm
+      - name: Use pnpm
         uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm test
@@ -64,13 +79,13 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v4
-      - name: use node.js
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - name: use pnpm
+      - name: Use pnpm
         uses: pnpm/action-setup@v4
       - run: pnpm install
       - name: Run docker-compose
