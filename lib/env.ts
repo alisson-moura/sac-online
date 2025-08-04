@@ -18,6 +18,7 @@ const envSchema = z.object({
     .max(65535, "POSTGRES_PORT deve ser um número válido entre 1 e 65535"),
   DATABASE_URL: z.url("DATABASE_URL deve ser uma URL válida"),
   POSTGRES_SCHEMA: z.string().default('public'),
+  POSTGRES_CA: z.string().optional(),
   PORT: z.coerce.number().positive().default(3000),
 });
 
