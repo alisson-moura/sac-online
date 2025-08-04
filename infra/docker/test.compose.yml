@@ -1,0 +1,9 @@
+services:
+  database:
+    image: postgres:alpine
+    container_name: test-db
+    restart: always
+    env_file:
+      - ../../.env.test
+    ports:
+      - "5431:5432"
