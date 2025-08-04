@@ -1,0 +1,31 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    name: Lint, Build e Teste
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'pnpm' 
+
+      - name: Instalar Dependências
+        run: CI=true pnpm i
+
+      - name: Rodar Build
+        run: pnpm build
+
+      - name: Rodar Lint
+        run: pnpm lint
+
+      - name: Rodar Testes
+        run: pnpm test

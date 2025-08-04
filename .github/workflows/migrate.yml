@@ -1,0 +1,28 @@
+name: DB Migrate
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy-and-migrate:
+    name: Rodar Migrations em Produção
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'pnpm'
+
+      - name: Instalar Dependências
+        run: CI=true pnpm i
+
+      - name: Rodar Migrations de Produção
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          POSTGRES_CA: ${{ secrets.POSTGRES_CA }}
+        run: pnpm db:migrate
