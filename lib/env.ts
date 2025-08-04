@@ -23,7 +23,7 @@ const envSchema = z.object({
     .optional()
     .transform((certificateString) => {
       if (!certificateString) return undefined;
-      return certificateString.replace(/\r\n|\r|\n/g, "\\n");
+      return certificateString.split("\\n").join("\n");
     }),
   PORT: z.coerce.number().positive().default(3000),
 });
