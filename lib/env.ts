@@ -1,7 +1,7 @@
-import { config } from 'dotenv';
+import { config } from "dotenv";
 import { z } from "zod";
 
-config({ path: '.env' }); 
+config({ path: ".env" });
 
 const envSchema = z.object({
   NODE_ENV: z
@@ -17,8 +17,14 @@ const envSchema = z.object({
     .min(1)
     .max(65535, "POSTGRES_PORT deve ser um número válido entre 1 e 65535"),
   DATABASE_URL: z.url("DATABASE_URL deve ser uma URL válida"),
-  POSTGRES_SCHEMA: z.string().default('public'),
-  POSTGRES_CA: z.string().optional(),
+  POSTGRES_SCHEMA: z.string().default("public"),
+  POSTGRES_CA: z
+    .string()
+    .optional()
+    .transform((certificateString) => {
+      if (!certificateString) return undefined;
+      return certificateString.replace(/\r\n|\r|\n/g, "\\n");
+    }),
   PORT: z.coerce.number().positive().default(3000),
 });
 

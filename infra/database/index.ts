@@ -12,7 +12,7 @@ export const pool = new Pool({
   database: env.POSTGRES_DB,
   ssl: env.POSTGRES_CA
     ? {
-        cert: env.POSTGRES_CA,
+        ca: env.POSTGRES_CA,
       }
     : false,
   options: `-c search_path=${env.POSTGRES_SCHEMA}`,
