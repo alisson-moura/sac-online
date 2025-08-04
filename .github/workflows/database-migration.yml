@@ -3,14 +3,14 @@ name: Database Migration
 on:
   push:
     branches: [main]
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   migrate:
     name: Run Database Migration
     runs-on: ubuntu-latest
-    environment: production 
-    
+    environment: production
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,8 +23,8 @@ jobs:
       - name: Setup Node.js from .nvmrc
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -33,5 +33,10 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           POSTGRES_CA: ${{ secrets.POSTGRES_CA }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
           NODE_ENV: production
         run: pnpm run db:migrate
