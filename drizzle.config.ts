@@ -9,7 +9,7 @@ export default defineConfig({
     url: env.DATABASE_URL,
     ssl: env.POSTGRES_CA
       ? {
-          rejectUnauthorized: false,
+          rejectUnauthorized: true,
           ca: env.POSTGRES_CA,
         }
       : false,
