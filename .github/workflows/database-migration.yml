@@ -1,15 +1,15 @@
-name: CI
+name: Database Migration
 
 on:
-  pull_request:
-    branches: [main]
   push:
     branches: [main]
+  workflow_dispatch: 
 
 jobs:
-  test:
-    name: Test and Build
+  migrate:
+    name: Run Database Migration
     runs-on: ubuntu-latest
+    environment: production 
     
     steps:
       - name: Checkout repository
@@ -29,14 +29,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Lint code
-        run: pnpm run lint
-
-      - name: Type check
-        run: pnpm run type-check || echo "Type check not available"
-
-      - name: Run tests
-        run: pnpm run test
-
-      - name: Build application
-        run: pnpm run build
+      - name: Run database migrations
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          POSTGRES_CA: ${{ secrets.POSTGRES_CA }}
+          NODE_ENV: production
+        run: pnpm run db:migrate
