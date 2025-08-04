@@ -1,4 +1,3 @@
-import "dotenv";
 import { defineConfig } from "drizzle-kit";
 import { env } from "@/lib/env";
 
@@ -10,7 +9,7 @@ export default defineConfig({
     url: env.DATABASE_URL,
     ssl: env.POSTGRES_CA
       ? {
-          rejectUnauthorized: true,
+          rejectUnauthorized: false,
           ca: env.POSTGRES_CA,
         }
       : false,
