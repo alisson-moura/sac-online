@@ -1,0 +1,1 @@
+ALTER TABLE "usuarios" ADD COLUMN "celular" integer NOT NULL;
