@@ -20,11 +20,7 @@ const envSchema = z.object({
   POSTGRES_SCHEMA: z.string().default("public"),
   POSTGRES_CA: z
     .string()
-    .optional()
-    .transform((certificateString) => {
-      if (!certificateString) return undefined;
-      return certificateString.split("\\n").join("\n");
-    }),
+    .optional(),
   PORT: z.coerce.number().positive().default(3000),
 });
 
