@@ -6,6 +6,10 @@ import { Email } from "@/model/email";
 import { PersonName } from "@/model/person-name";
 import { Password } from "@/model/password";
 import { MobilePhone } from "@/model/mobile-phone";
+import {
+  EmailAlreadyInUseError,
+  PhoneAlreadyInUseError,
+} from "@/errors/user-errors";
 
 type CreateUserInput = {
   email: string;
@@ -18,6 +22,14 @@ export class CreateUser {
   constructor(private userRepository: UserRepository) {}
 
   async handle(input: CreateUserInput): Promise<void> {
+    const availability = await this.userRepository.checkAvailability(
+      Email.create(input.email),
+      MobilePhone.create(input.telefone)
+    );
+
+    if (!availability.emailAvailable) throw new EmailAlreadyInUseError();
+    if (!availability.phoneAvailable) throw new PhoneAlreadyInUseError();
+
     const user = new User({
       id: EntityId.create(),
       status: Status.ativo(),
@@ -30,6 +42,6 @@ export class CreateUser {
       lastAccess: null,
     });
 
-    await this.userRepository.save(user);
+    await this.userRepository.create(user);
   }
 }

@@ -13,9 +13,9 @@ const config: Config = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: "<rootDir>/",
   }),
-  setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.ts"],
+  setupFilesAfterEnv: ["<rootDir>/tests/setup.ts"],
   testTimeout: 70000,
-  testMatch: ['**/?(*.)+(test).ts']
+  testMatch: ["**/?(*.)+(test).ts"],
 };
 
 export default createJestConfig(config);

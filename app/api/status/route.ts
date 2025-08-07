@@ -1,5 +1,5 @@
-import { db } from "@/infra/database";
 import { NextResponse } from "next/server";
+import { query } from "@/infra/database/query";
 
 export async function GET() {
   const database = {
@@ -9,17 +9,14 @@ export async function GET() {
   };
 
   try {
-    const {
-      rows: [dbVersion],
-    } = await db.execute<{ server_version: string }>("SHOW server_version");
-    const {
-      rows: [dbConnections],
-    } = await db.execute<{ conexoes: number }>(
-      "SELECT count(*)::int AS conexoes FROM pg_stat_activity"
-    );
-
-    database.conexoes = dbConnections.conexoes;
-    database.version = dbVersion.server_version;
+    const dbVersion = await query.findFirst<{
+      server_version: string;
+    }>({ text: "SHOW server_version" });
+    const dbConnections = await query.findFirst<{ conexoes: number }>({
+      text: "SELECT count(*)::int AS conexoes FROM pg_stat_activity",
+    });
+    if (dbConnections) database.conexoes = dbConnections.conexoes;
+    if (dbVersion) database.version = dbVersion.server_version;
   } catch (error) {
     console.error(error);
     database.status = "down";

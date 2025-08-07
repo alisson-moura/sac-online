@@ -1,12 +1,11 @@
-import { eq } from "drizzle-orm";
-import { db } from "@/infra/database";
-import { usuarios } from "@/infra/database/schema";
 import { PgUserRepository } from "@/infra/database/repositories/user-repository";
 import { CreateUser } from "@/use-cases/users/create-user";
 import {
   EmailAlreadyInUseError,
   PhoneAlreadyInUseError,
 } from "@/errors/user-errors";
+import { query } from "@/infra/database/query";
+import { Email } from "@/model/email";
 
 describe("CreateUser Use Case", () => {
   let createUser: CreateUser;
@@ -27,13 +26,12 @@ describe("CreateUser Use Case", () => {
   it("deve criar um usuário com dados válidos", async () => {
     await createUser.handle(validInput);
 
-    const userInDb = await db
-      .select()
-      .from(usuarios)
-      .where(eq(usuarios.email, validInput.email))
-      .limit(1);
+    const userOnDb = await query.findFirst<{ id: number }>({
+      text: "SELECT id FROM users WHERE email = $1",
+      values: [Email.create(validInput.email).full],
+    });
 
-    expect(userInDb).toHaveLength(1);
+    expect(userOnDb).not.toBeNull();
   });
 
   it("deve lançar EmailAlreadyInUseError quando email já existe", async () => {
@@ -45,7 +43,7 @@ describe("CreateUser Use Case", () => {
       nome: "Outro Nome",
     };
 
-    expect(async () =>  await createUser.handle(duplicateEmailInput)).rejects.toThrow(
+    await expect(() => createUser.handle(duplicateEmailInput)).rejects.toThrow(
       EmailAlreadyInUseError
     );
   });
@@ -59,8 +57,8 @@ describe("CreateUser Use Case", () => {
       nome: "Outro Nome",
     };
 
-    expect(async () => await createUser.handle(duplicatePhoneInput)).rejects.toThrow(
-      PhoneAlreadyInUseError
-    );
+    expect(
+      async () => await createUser.handle(duplicatePhoneInput)
+    ).rejects.toThrow(PhoneAlreadyInUseError);
   });
 });

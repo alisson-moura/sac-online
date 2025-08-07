@@ -2,8 +2,11 @@ services:
   database:
     image: postgres:alpine
     container_name: test-db
-    restart: always
     env_file:
-      - ../../.env.test
+      - "../../.env.test"
+    environment:
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
     ports:
-      - "5431:5432"
+      - "5432:5432"

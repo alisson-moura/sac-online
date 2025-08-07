@@ -1,5 +1,14 @@
+import { Email } from "./email";
+import { MobilePhone } from "./mobile-phone";
 import { User } from "./user";
 
 export interface UserRepository {
-  save(user: User): Promise<void>;
+  create(user: User): Promise<void>;
+  checkAvailability(
+    email: Email,
+    phone: MobilePhone
+  ): Promise<{
+    emailAvailable: boolean;
+    phoneAvailable: boolean;
+  }>;
 }

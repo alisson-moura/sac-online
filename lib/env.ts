@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { z } from "zod";
+import { z } from "zod/v4";
 
 config({ path: process.env.NODE_ENV === "test" ? ".env.test" : ".env" });
 
@@ -7,18 +7,17 @@ const envSchema = z.object({
   NODE_ENV: z
     .enum(["development", "production", "test"])
     .default("development"),
-  POSTGRES_USER: z.string().min(1, "POSTGRES_USER é obrigatório"),
-  POSTGRES_PASSWORD: z.string().min(1, "POSTGRES_PASSWORD é obrigatório"),
-  POSTGRES_DB: z.string().min(1, "POSTGRES_DB é obrigatório"),
-  POSTGRES_HOST: z.string().min(1, "POSTGRES_HOST é obrigatório"),
-  POSTGRES_PORT: z.coerce
+  PGUSER: z.string().min(1, "PGUSER é obrigatório"),
+  PGPASSWORD: z.string().min(1, "PGPASSWORD é obrigatório"),
+  PGDATABASE: z.string().min(1, "PGDATABASE é obrigatório"),
+  PGHOST: z.string().min(1, "PGHOST é obrigatório"),
+  PGCA: z.string().optional(),
+  PGPORT: z.coerce
     .number()
     .int()
     .min(1)
-    .max(65535, "POSTGRES_PORT deve ser um número válido entre 1 e 65535"),
+    .max(65535, "PGPORT deve ser um número válido entre 1 e 65535"),
   DATABASE_URL: z.url("DATABASE_URL deve ser uma URL válida"),
-  POSTGRES_SCHEMA: z.string().default("public"),
-  POSTGRES_CA: z.string().optional(),
   PORT: z.coerce.number().positive().default(3000),
 });
 
