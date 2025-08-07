@@ -1,31 +1,22 @@
 import { pool } from "@/infra/database";
 import { runMigrations } from "@/infra/database/migrate";
-import { randomUUID } from "crypto";
+import type { PoolClient } from "pg";
 
-const uuid = randomUUID().split("-");
-const schema = `test_${uuid[0]}`;
-process.env.POSTGRES_SCHEMA = schema;
+let client: PoolClient;
+
+beforeAll(async () => {
+  client = await pool.connect();
+  await runMigrations();
+});
 
 beforeEach(async () => {
-  const client = await pool.connect();
-
-  await client.query({
-    text: `CREATE SCHEMA IF NOT EXISTS ${schema}`,
-  });
-
-  await runMigrations();
-
-  client.release();
+  await client.query("BEGIN");
 });
 
 afterEach(async () => {
-  const client = await pool.connect();
-  await client.query({
-    text: `DROP SCHEMA IF EXISTS ${schema} CASCADE`,
-  });
-  client.release();
+  await client.query("ROLLBACK");
 });
 
 afterAll(async () => {
-  await pool.end();
+  client.release();
 });

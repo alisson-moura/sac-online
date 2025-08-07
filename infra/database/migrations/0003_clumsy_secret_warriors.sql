@@ -1,0 +1,1 @@
+ALTER TABLE "usuarios" ALTER COLUMN "celular" SET DATA TYPE text;

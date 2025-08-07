@@ -1,4 +1,11 @@
-import { pgTable, serial, text, timestamp, pgEnum , integer} from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  pgEnum,
+  integer,
+} from "drizzle-orm/pg-core";
 
 export const statusUsuarioEnum = pgEnum("status_usuario_enum", [
   "ativo",
@@ -10,7 +17,7 @@ export const usuarios = pgTable("usuarios", {
   nome: text("nome").notNull(),
   hash: text("hash").notNull(),
   email: text("email").notNull().unique(),
-  celular: integer("celular").notNull(),
+  celular: text("celular").notNull().unique(),
   ultimoAcesso: timestamp("ultimo_acesso"),
   status: statusUsuarioEnum("status").default("ativo").notNull(),
   criadoEm: timestamp("criado_em").defaultNow().notNull(),

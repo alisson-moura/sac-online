@@ -15,6 +15,7 @@ const config: Config = {
   }),
   setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.ts"],
   testTimeout: 70000,
+  testMatch: ['**/?(*.)+(test).ts']
 };
 
 export default createJestConfig(config);
