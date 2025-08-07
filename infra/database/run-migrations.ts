@@ -8,7 +8,6 @@ export async function runMigrations({
   schema: string;
   dbClient: ClientBase;
 }): Promise<void> {
-  console.log(schema);
   await runner({
     createSchema: true,
     dbClient,
