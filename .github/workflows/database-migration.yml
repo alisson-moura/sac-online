@@ -39,4 +39,4 @@ jobs:
           PGHOST: ${{ secrets.POSTGRES_HOST }}
           PGPORT: ${{ secrets.POSTGRES_PORT }}
           NODE_ENV: production
-        run: pnpm db:migrate up
+        run: pnpm ci:migrate

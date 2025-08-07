@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { env } from "@/lib/env";
+import { env } from "../../lib/env";
 
 export const pool = new Pool({
   host: env.PGHOST,
@@ -11,6 +11,7 @@ export const pool = new Pool({
   ssl: env.PGCA
     ? {
         ca: env.PGCA,
+        rejectUnauthorized: true,
       }
     : false,
 });

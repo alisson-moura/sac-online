@@ -15,7 +15,8 @@
     "wait:pg": "pnpm dlx ts-node ./infra/scripts/wait-for-pg.ts",
     "wait:pg:dev": "pnpm dlx ts-node ./infra/scripts/wait-for-pg.ts dev-db",
     "wait:pg:test": "pnpm dlx ts-node ./infra/scripts/wait-for-pg.ts test-db",
-    "db:migrate": "node-pg-migrate --tsconfig ./tsconfig.json -m infra/database/migrations"
+    "db:migrate": "node-pg-migrate --tsconfig ./tsconfig.json -m infra/database/migrations",
+    "ci:migrate": "pnpm dlx ts-node ./infra/scripts/migrate.ts"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
