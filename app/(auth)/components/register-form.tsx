@@ -293,6 +293,8 @@ export function RegisterForm() {
       <div className="bg-muted relative hidden md:block">
         <Image
           src="/register.svg"
+          width={10}
+          height={10}
           alt="Ilustração representando o cadastro de usuário no Sac-App"
           className="h-full w-full object-fill"
         />

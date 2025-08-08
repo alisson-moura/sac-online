@@ -1,3 +1,13 @@
+import { Navbar } from "@/components/landpage/navbar";
+import { Hero } from "@/components/landpage/hero";
+
 export default function Home() {
-  return (<h1>Bem vindo!</h1>);
+  return (
+    <>
+      <Navbar />
+      <div className="w-full flex justify-center">
+        <Hero />
+      </div>
+    </>
+  );
 }

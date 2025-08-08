@@ -203,6 +203,8 @@ export function LoginForm() {
       <div className="bg-muted relative hidden md:block">
         <Image
           src="/login.svg"
+          width={10}
+          height={10}
           alt="Ilustração representando o login de usuário no Sac-App"
           className="h-full w-full object-fit p-4"
         />
