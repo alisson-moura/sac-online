@@ -4,9 +4,32 @@ import { Email } from "@/model/email";
 import { MobilePhone } from "@/model/mobile-phone";
 import { transaction } from "@/infra/database/transaction";
 import { query } from "@/infra/database/query";
+import { EntityId } from "../../../model/entity-id";
+import { Status } from "../../../model/status";
+import { PersonName } from "../../../model/person-name";
+import { Password } from "../../../model/password";
 
 export class PgUserRepository implements UserRepository {
   constructor() {}
+  async getByEmail(email: Email): Promise<User | null> {
+    const dbResult = await query.findFirst({
+      text: "SELECT * FROM users WHERE email = $1",
+      values: [email.full],
+    });
+    if (!dbResult) return null;
+
+    return new User({
+      id: EntityId.create(dbResult.id),
+      status: Status.create(dbResult.status),
+      email: Email.create(dbResult.email),
+      mobilePhone: MobilePhone.create(dbResult.mobile_phone),
+      name: PersonName.create(dbResult.name),
+      password: Password.fromHash(dbResult.hash),
+      createdAt: dbResult.created_at,
+      updatedAt: dbResult.updated_at,
+      lastAccess: dbResult.last_access,
+    });
+  }
   async checkAvailability(email: Email, phone: MobilePhone) {
     const stm = `
       SELECT 

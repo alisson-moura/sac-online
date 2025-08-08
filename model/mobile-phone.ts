@@ -1,7 +1,9 @@
+import { ValidationError } from "@/errors/validation-error";
+
 export class MobilePhone {
   private static readonly REGEX =
     /^(?:\+55\s?)?(?:\()?(?:0?[1-9]{2})(?:\))?[\s\-]?9[0-9]{4}[\s\-]?[0-9]{4}$/;
-  
+
   private static readonly COUNTRY_CODE = "55";
 
   private readonly value: string;
@@ -12,11 +14,11 @@ export class MobilePhone {
 
   public static create(value: string): MobilePhone {
     if (!value || typeof value !== "string") {
-      throw new Error("Número de celular é obrigatório.");
+      throw new ValidationError("Número de celular é obrigatório.");
     }
 
     if (!this.isValid(value)) {
-      throw new Error(
+      throw new ValidationError(
         "Formato de celular inválido. Use o formato brasileiro (11) 99999-9999."
       );
     }
@@ -30,10 +32,10 @@ export class MobilePhone {
 
   private extractDigits(phone: string): string {
     const digits = phone.replace(/\D/g, "");
-    
+
     // Remove código do país se presente (55)
-    const cleanDigits = digits.startsWith(MobilePhone.COUNTRY_CODE) 
-      ? digits.substring(2) 
+    const cleanDigits = digits.startsWith(MobilePhone.COUNTRY_CODE)
+      ? digits.substring(2)
       : digits;
 
     // Adiciona código do país para padronizar
@@ -61,8 +63,11 @@ export class MobilePhone {
   get formatted(): string {
     const areaCode = this.areaCode;
     const phoneNumber = this.number;
-    
-    return `(${areaCode}) ${phoneNumber.substring(0, 5)}-${phoneNumber.substring(5)}`;
+
+    return `(${areaCode}) ${phoneNumber.substring(
+      0,
+      5
+    )}-${phoneNumber.substring(5)}`;
   }
 
   get withCountryCode(): string {

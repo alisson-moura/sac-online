@@ -1,3 +1,5 @@
+import { ValidationError } from "@/errors/validation-error";
+
 export class PersonName {
   private static readonly MIN_NAME_LENGTH = 2;
   private static readonly MIN_NAMES_REQUIRED = 2;
@@ -15,18 +17,22 @@ export class PersonName {
 
   private validate(value: string) {
     if (!value || value.trim().length === 0)
-      throw new Error("Por favor informe nome e sobrenome.");
+      throw new ValidationError("Por favor informe nome e sobrenome.");
 
     const names = this.splitNames(value);
 
     if (names.length < PersonName.MIN_NAMES_REQUIRED)
-      throw new Error("Por favor informe um sobrenome.");
+      throw new ValidationError("Por favor informe um sobrenome.");
 
     if (names[0].length < PersonName.MIN_NAME_LENGTH)
-      throw new Error("O primeiro nome deve possuir mais de 2 caracteres.");
+      throw new ValidationError(
+        "O primeiro nome deve possuir mais de 2 caracteres."
+      );
 
     if (names[names.length - 1].length < PersonName.MIN_NAME_LENGTH)
-      throw new Error("O ultimo nome deve possuir mais de 2 caracteres.");
+      throw new ValidationError(
+        "O ultimo nome deve possuir mais de 2 caracteres."
+      );
   }
 
   get firstName(): string {
