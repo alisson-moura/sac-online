@@ -19,6 +19,8 @@ const envSchema = z.object({
     .max(65535, "PGPORT deve ser um número válido entre 1 e 65535"),
   DATABASE_URL: z.url("DATABASE_URL deve ser uma URL válida"),
   PORT: z.coerce.number().positive().default(3000),
+  BETTER_AUTH_SECRET: z.string().min(8, "Forneça um secret válido"),
+  BETTER_AUTH_URL: z.url(),
 });
 
 function validateEnv() {
