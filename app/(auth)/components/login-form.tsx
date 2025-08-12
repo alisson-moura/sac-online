@@ -17,10 +17,11 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
 import Image from "next/image";
+import { authClient } from "../../../lib/auth/client";
 
 const loginSchema = z.object({
   email: z.email("Informe um e-mail válido, por exemplo: voce@exemplo.com."),
-  senha: z
+  password: z
     .string()
     .min(1, "A senha é obrigatória.")
     .max(128, "A senha pode ter no máximo 128 caracteres."),
@@ -36,32 +37,20 @@ export function LoginForm() {
     mode: "onChange",
     defaultValues: {
       email: "",
-      senha: "",
+      password: "",
     },
   });
 
   async function onSubmit(values: LoginInput) {
     try {
-      const res = await fetch("/api/v1/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
+      const { error } = await authClient.signIn.email({
+        ...values,
+        callbackURL: "/dashboard",
       });
 
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(
-          body?.message ||
-            "Não foi possível fazer login no momento. Verifique suas credenciais e tente novamente."
-        );
+      if (error) {
+        throw new Error("E-mail ou senha estão incorretos.");
       }
-
-      const data = await res.json();
-      console.log(data);
-      // Redirecionar para dashboard ou página principal
-      // window.location.href = "/dashboard";
     } catch (err) {
       let message =
         "Ocorreu um erro inesperado ao fazer login. Verifique sua conexão e tente novamente.";
@@ -109,7 +98,7 @@ export function LoginForm() {
 
             <FormField
               control={form.control}
-              name="senha"
+              name="password"
               render={({ field }) => (
                 <FormItem>
                   <div className="flex items-center justify-between">

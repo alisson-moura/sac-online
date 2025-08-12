@@ -25,21 +25,22 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
 import Image from "next/image";
+import { authClient } from "@/lib/auth/client";
 
 const registerSchema = z.object({
-  nome: z
+  name: z
     .string()
     .min(3, "O nome deve ter ao menos 3 caracteres.")
     .max(100, "O nome pode ter no máximo 100 caracteres."),
   email: z.email("Informe um e-mail válido, por exemplo: voce@exemplo.com."),
-  telefone: z
+  mobilePhone: z
     .string()
     .transform((v) => v.trim())
     .refine((v) => {
       const digits = v.replace(/\D/g, "");
       return digits.length === 10 || digits.length === 11;
     }, "Informe um telefone válido com DDD, por exemplo: (11) 91234-5678."),
-  senha: z
+  password: z
     .string()
     .min(
       8,
@@ -72,29 +73,23 @@ export function RegisterForm() {
     resolver: zodResolver(registerSchema),
     mode: "onChange",
     defaultValues: {
-      nome: "",
+      name: "",
       email: "",
-      telefone: "",
-      senha: "",
+      mobilePhone: "",
+      password: "",
     },
   });
 
   async function onSubmit(values: CreateUserInput) {
     try {
-      const res = await fetch("/api/v1/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+      const { error } = await authClient.signUp.email(values);
 
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(
-          body?.message ||
-            "Não foi possível criar sua conta no momento. Tente novamente em alguns instantes."
-        );
+      if (error) {
+        if (error.code === "USER_ALREADY_EXISTS")
+          error.message = "Este e-mail já está em uso por outra pessoa.";
+        if (error.code === "FAILED_TO_CREATE_USER")
+          error.message = "Este nº de telefone já está em uso.";
+        throw new Error(error.message);
       }
     } catch (err) {
       let message =
@@ -123,7 +118,7 @@ export function RegisterForm() {
           >
             <FormField
               control={form.control}
-              name="nome"
+              name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
@@ -162,7 +157,7 @@ export function RegisterForm() {
 
             <FormField
               control={form.control}
-              name="telefone"
+              name="mobilePhone"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Telefone</FormLabel>
@@ -192,7 +187,7 @@ export function RegisterForm() {
 
             <FormField
               control={form.control}
-              name="senha"
+              name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Senha</FormLabel>

@@ -39,4 +39,6 @@ jobs:
           PGHOST: ${{ secrets.POSTGRES_HOST }}
           PGPORT: ${{ secrets.POSTGRES_PORT }}
           NODE_ENV: production
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+          BETTER_AUTH_URL: ${{ secrets.BETTER_AUTH_URL }}
         run: pnpm ci:migrate
